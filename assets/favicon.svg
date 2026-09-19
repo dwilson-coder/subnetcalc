@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">SubnetCalc network favicon</title>
+  <desc id="desc">A network node diagram representing IPv4 subnetting.</desc>
+  <rect width="64" height="64" rx="14" fill="#0f172a"/>
+  <path d="M32 18v28M18 32h28M21 21l22 22M43 21 21 43" stroke="#334155" stroke-width="3" stroke-linecap="round"/>
+  <path d="M32 32 18 18M32 32l14 14M32 32l14-14M32 32 18 46" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" opacity=".85"/>
+  <circle cx="32" cy="32" r="8" fill="#38bdf8"/>
+  <circle cx="18" cy="18" r="5" fill="#4ade80"/>
+  <circle cx="46" cy="18" r="5" fill="#4ade80"/>
+  <circle cx="18" cy="46" r="5" fill="#4ade80"/>
+  <circle cx="46" cy="46" r="5" fill="#4ade80"/>
+  <path d="M29 29h6v6h-6z" fill="#0f172a"/>
+</svg>

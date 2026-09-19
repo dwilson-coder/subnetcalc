@@ -53,6 +53,8 @@ To calculate a subnet:
 │   └── style.css
 ├── src/
 │   └── app.js
+├── assets/
+│   └── favicon.svg
 └── og.jpg
 ```
 
