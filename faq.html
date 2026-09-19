@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — SubnetCalc</title>
+<meta name="author" content="Damion Wilson for CoeBox LLC">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://codeboxllc.net/">
+<meta property="og:title" content="FAQ — SubnetCalc">
+<meta property="og:description" content="Find answers about CIDR notation, subnet masks, host counts, and network addresses.">
+<link rel="canonical" href="https://codeboxllc.net/">
+<link rel="me" href="https://www.linkedin.com/in/damion-coder-wilson">
+<link rel="me" href="https://bsky.app/profile/dwilsoncoder.bsky.social">
+<link rel="me" href="https://github.com/dwilson-coder/subnetcalc.git">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-faq">
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">SubnetCalc</a>
+    <div class="nav-links">
+      <a href="index.html">Calculator</a>
+      <a href="dataflow.html">Data Flow</a>
+      <a href="faq.html" class="active">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>Frequently Asked Questions</h1>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab(0)">Hosts per Subnet</button>
+    <button class="tab-btn" onclick="showTab(1)">CIDR Notation</button>
+    <button class="tab-btn" onclick="showTab(2)">Mask vs CIDR</button>
+    <button class="tab-btn" onclick="showTab(3)">Host Calculation</button>
+    <button class="tab-btn" onclick="showTab(4)">Network vs Broadcast</button>
+  </div>
+
+  <!-- Tab 1 -->
+  <div class="tab-panel active" id="panel-0">
+    <h2>How do I calculate the number of hosts per subnet?</h2>
+    <p>The formula is:</p>
+    <pre>Usable hosts = 2^(host bits) − 2</pre>
+    <p>Where <code>host bits = 32 − prefix length</code> (for IPv4).</p>
+    <p>You subtract 2 because the first address (all host bits = 0) is the <strong>network address</strong> and the last (all host bits = 1) is the <strong>broadcast address</strong> — neither can be assigned to a device.</p>
+    <table>
+      <tr><th>Prefix</th><th>Host bits</th><th>Total addresses</th><th>Usable hosts</th></tr>
+      <tr><td>/8</td><td>24</td><td>16,777,216</td><td>16,777,214</td></tr>
+      <tr><td>/16</td><td>16</td><td>65,536</td><td>65,534</td></tr>
+      <tr><td>/24</td><td>8</td><td>256</td><td>254</td></tr>
+      <tr><td>/25</td><td>7</td><td>128</td><td>126</td></tr>
+      <tr><td>/26</td><td>6</td><td>64</td><td>62</td></tr>
+      <tr><td>/27</td><td>5</td><td>32</td><td>30</td></tr>
+      <tr><td>/28</td><td>4</td><td>16</td><td>14</td></tr>
+      <tr><td>/29</td><td>3</td><td>8</td><td>6</td></tr>
+      <tr><td>/30</td><td>2</td><td>4</td><td>2</td></tr>
+      <tr><td>/31</td><td>1</td><td>2</td><td>2*</td></tr>
+      <tr><td>/32</td><td>0</td><td>1</td><td>1*</td></tr>
+    </table>
+    <p>* /31 and /32 are special cases (RFC 3021) — no broadcast address exists, so both addresses in a /31 are usable for point-to-point links.</p>
+    <p><strong>Example:</strong> <code>192.168.10.0/25</code> → host bits = 32 − 25 = 7 → 2⁷ − 2 = <strong>126 usable hosts</strong></p>
+  </div>
+
+  <!-- Tab 2 -->
+  <div class="tab-panel" id="panel-1">
+    <h2>What is CIDR notation and how does it work?</h2>
+    <p><strong>CIDR</strong> (Classless Inter-Domain Routing) notation writes an IP address followed by a slash and a <strong>prefix length</strong>: <code>192.168.1.0/24</code></p>
+    <p>The number after the slash tells you <strong>how many leading bits are the network portion</strong>. The remaining bits are for hosts.</p>
+    <p><strong>How it maps to a subnet mask:</strong></p>
+    <table>
+      <tr><th>CIDR</th><th>Binary mask</th><th>Dotted-quad mask</th></tr>
+      <tr><td>/8</td><td><code>11111111.00000000.00000000.00000000</code></td><td>255.0.0.0</td></tr>
+      <tr><td>/16</td><td><code>11111111.11111111.00000000.00000000</code></td><td>255.255.0.0</td></tr>
+      <tr><td>/24</td><td><code>11111111.11111111.11111111.00000000</code></td><td>255.255.255.0</td></tr>
+      <tr><td>/25</td><td><code>11111111.11111111.11111111.10000000</code></td><td>255.255.255.128</td></tr>
+      <tr><td>/30</td><td><code>11111111.11111111.11111111.11111100</code></td><td>255.255.255.252</td></tr>
+    </table>
+    <p><strong>Why it exists:</strong> Before 1993, IP addresses were divided into fixed classes (A = /8, B = /16, C = /24), which wasted enormous amounts of address space. CIDR allows <em>any</em> prefix length from /0 to /32, so you can allocate exactly the size you need.</p>
+    <p><strong>In IPv6</strong>, the same concept applies to 128-bit addresses with prefix lengths from /0 to /128 (e.g., <code>2001:db8::/64</code>).</p>
+  </div>
+
+  <!-- Tab 3 -->
+  <div class="tab-panel" id="panel-2">
+    <h2>What is the difference between a subnet mask and CIDR?</h2>
+    <p><strong>They're the same thing in two different formats.</strong> A subnet mask and CIDR notation both describe the network/host boundary of an IP address — the only difference is how you write it.</p>
+    <table>
+      <tr><th></th><th>Subnet Mask (dotted decimal)</th><th>CIDR (prefix length)</th></tr>
+      <tr><td><strong>Format</strong></td><td><code>255.255.255.128</code></td><td><code>/25</code></td></tr>
+      <tr><td><strong>What it says</strong></td><td>"These 32 bits are the mask"</td><td>"The first 25 bits are network"</td></tr>
+      <tr><td><strong>Where you'll see it</strong></td><td>OS settings, legacy configs</td><td>Routing tables, cloud consoles, modern docs</td></tr>
+    </table>
+    <p><strong>They convert directly:</strong></p>
+    <pre>255.255.255.128  →  11111111.11111111.11111111.10000000  →  25 ones  →  /25</pre>
+    <p><strong>Why CIDR won in practice:</strong></p>
+    <ul>
+      <li><strong>Shorter</strong> — two characters (<code>/25</code>) vs. thirteen (<code>255.255.255.128</code>)</li>
+      <li><strong>Less error-prone</strong> — no risk of mistyping an octet</li>
+      <li><strong>Works for any prefix</strong> — <code>/27</code>, <code>/29</code>, <code>/31</code> are all valid</li>
+      <li><strong>IPv6 only uses prefix length</strong> — a 128-bit mask in dotted decimal would be unreadable</li>
+    </ul>
+    <p><strong>When you still see dotted-decimal masks:</strong> Windows "View IP Properties" dialog, older Cisco/IOS configs, some ACLs and legacy documentation.</p>
+  </div>
+
+  <!-- Tab 4 -->
+  <div class="tab-panel" id="panel-3">
+    <h2>How do you calculate the number of hosts in a subnet?</h2>
+    <p><strong>Formula:</strong></p>
+    <pre>Usable hosts = 2^(host bits) − 2</pre>
+    <p>Where <code>host bits = 32 − prefix length</code>.</p>
+    <p><strong>Step-by-step for <code>192.168.10.0/25</code>:</strong></p>
+    <ul>
+      <li>Host bits = 32 − 25 = <strong>7</strong></li>
+      <li>Total addresses = 2⁷ = <strong>128</strong></li>
+      <li>Usable hosts = 128 − 2 = <strong>126</strong></li>
+    </ul>
+    <p>The "−2" accounts for the two reserved addresses (network and broadcast).</p>
+    <p><strong>Reverse lookup</strong> (given a host count, find the prefix):</p>
+    <pre>prefix = 32 − ceil(log2(required_hosts + 2))</pre>
+    <p>e.g. need 50 hosts → log₂(52) ≈ 5.7 → round up to 6 → prefix = 32 − 6 = <strong>/26</strong> (62 usable).</p>
+    <table>
+      <tr><th>Prefix</th><th>Host bits</th><th>Usable hosts</th></tr>
+      <tr><td>/24</td><td>8</td><td>254</td></tr>
+      <tr><td>/25</td><td>7</td><td>126</td></tr>
+      <tr><td>/26</td><td>6</td><td>62</td></tr>
+      <tr><td>/27</td><td>5</td><td>30</td></tr>
+      <tr><td>/28</td><td>4</td><td>14</td></tr>
+      <tr><td>/29</td><td>3</td><td>6</td></tr>
+      <tr><td>/30</td><td>2</td><td>2</td></tr>
+    </table>
+  </div>
+
+  <!-- Tab 5 -->
+  <div class="tab-panel" id="panel-4">
+    <h2>What is the difference between a network address and a broadcast address?</h2>
+    <p>These are the two "bookend" addresses in every subnet — the first and last. Neither can be assigned to a device.</p>
+    <table>
+      <tr><th></th><th>Network Address</th><th>Broadcast Address</th></tr>
+      <tr><td><strong>Position</strong></td><td>First address in the subnet</td><td>Last address in the subnet</td></tr>
+      <tr><td><strong>Host bits</strong></td><td>All <strong>0</strong></td><td>All <strong>1</strong></td></tr>
+      <tr><td><strong>Purpose</strong></td><td>Identifies the subnet itself (used in routing tables)</td><td>Sends a packet to <em>every</em> device on the subnet</td></tr>
+      <tr><td><strong>Calculate</strong></td><td><code>IP AND mask</code></td><td><code>network OR wildcard</code></td></tr>
+      <tr><td><strong>Example (/24)</strong></td><td><code>192.168.1.0</code></td><td><code>192.168.1.255</code></td></tr>
+      <tr><td><strong>Example (/25)</strong></td><td><code>192.168.10.0</code></td><td><code>192.168.10.127</code></td></tr>
+    </table>
+    <p><strong>In short:</strong> the network address says *"this is the subnet"*; the broadcast address says *"talk to everyone in this subnet at once."</strong></p>
+    <p><strong>Special cases:</strong></p>
+    <ul>
+      <li><strong>/31</strong> (RFC 3021) — no broadcast address; both addresses are usable for point-to-point links</li>
+      <li><strong>/32</strong> — a single host route; no broadcast</li>
+      <li><strong>IPv6</strong> — has no broadcast address at all; uses multicast instead (e.g. <code>ff02::1</code> = all-nodes)</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  <div class="copy">&copy; 2026 CodeBox LLC. All rights reserved.</div>
+  Created by <a href="https://codeboxllc.net/" target="_blank" rel="noopener">CodeBox LLC</a>
+  <div class="links">
+    <a href="https://github.com/codeboxllc/subnetcalc" target="_blank" rel="noopener">GitHub Repo</a>
+  </div>
+</footer>
+
+<script src="src/app.js"></script>
+</body>
+</html>   

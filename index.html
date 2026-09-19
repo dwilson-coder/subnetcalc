@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IP Subnet Calculator</title>
+<meta name="author" content="Damion Wilson for CoeBox LLC">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://codeboxllc.net/">
+<meta property="og:title" content="IP Subnet Calculator">
+<meta property="og:description" content="Calculate IPv4 subnet details, host ranges, masks, and related IPv6 mappings.">
+<link rel="canonical" href="https://codeboxllc.net/">
+<link rel="me" href="https://www.linkedin.com/in/damion-coder-wilson">
+<link rel="me" href="https://bsky.app/profile/dwilsoncoder.bsky.social">
+<link rel="me" href="https://github.com/dwilson-coder/subnetcalc.git">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-calculator">
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">SubnetCalc</a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Calculator</a>
+      <a href="dataflow.html">Data Flow</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>IP Subnet Calculator</h1>
+  <p class="subtitle">Enter an IPv4 address and CIDR prefix to calculate subnet details</p>
+
+  <div class="input-row">
+    <input type="text" id="ipInput" placeholder="Enter IP address (e.g. 192.168.10.50)">
+    <select id="cidrSelect">
+      <option value="" disabled selected>Select prefix…</option>
+      <option value="8">/8</option>
+      <option value="16">/16</option>
+      <option value="24">/24</option>
+      <option value="25">/25</option>
+      <option value="26">/26</option>
+      <option value="27">/27</option>
+      <option value="28">/28</option>
+      <option value="29">/29</option>
+      <option value="30">/30</option>
+      <option value="31">/31</option>
+      <option value="32">/32</option>
+    </select>
+    <button class="btn-calc" onclick="calculate()">Calculate</button>
+    <button class="btn-clear" onclick="clearInputs()">Clear</button>
+  </div>
+
+  <div class="error" id="errorBox"></div>
+  <div class="loading" id="loadingMsg">Calculating…</div>
+  <div id="results" class="hidden"></div>
+</div>
+
+<footer>
+  <div class="copy">&copy; 2026 CodeBox LLC. All rights reserved.</div>
+  Created by <a href="https://codeboxllc.net/" target="_blank" rel="noopener">CodeBox LLC</a>
+  <div class="links">
+    <a href="https://github.com/codeboxllc/subnetcalc" target="_blank" rel="noopener">GitHub Repo</a>
+  </div>
+</footer>
+
+<script src="src/app.js"></script>
+</body>
+</html>   

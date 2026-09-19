@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — IP Subnet Calculator</title>
+<meta name="author" content="Damion Wilson for CoeBox LLC">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://codeboxllc.net/">
+<meta property="og:title" content="About — IP Subnet Calculator">
+<meta property="og:description" content="Learn about SubnetCalc, a browser-based IPv4 subnet calculation and networking study tool.">
+<link rel="canonical" href="https://codeboxllc.net/">
+<link rel="me" href="https://www.linkedin.com/in/damion-coder-wilson">
+<link rel="me" href="https://bsky.app/profile/dwilsoncoder.bsky.social">
+<link rel="me" href="https://github.com/dwilson-coder/subnetcalc.git">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-about">
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">SubnetCalc</a>
+    <div class="nav-links">
+      <a href="index.html">Calculator</a>
+      <a href="dataflow.html">Data Flow</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html" class="active">About</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>About SubnetCalc</h1>
+
+  <div class="card">
+    <h2>What Is This App?</h2>
+    <p>
+      SubnetCalc is a free, browser-based tool that calculates all the key values for any
+      IPv4 subnet — network address, broadcast address, usable host range, subnet mask,
+      wildcard mask, and related IPv6 mappings. It also walks you through every step of
+      the calculation so you can <strong>learn how the math works</strong>, not just get an answer.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Who Is It For?</h2>
+    <ul>
+      <li><strong>Network engineers</strong> — quick reference when designing or troubleshooting subnets</li>
+      <li><strong>Students</strong> — the step-by-step breakdown makes it a study aid for networking courses (CompTIA Network+, CCNA, etc.)</li>
+      <li><strong>Anyone configuring a home or small office network</strong> — figure out how many devices your subnet can support</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>How to Use</h2>
+    <ul>
+      <li>Type an IPv4 address into the input field (e.g. <code>192.168.10.50</code>)</li>
+      <li>Select a CIDR prefix from the dropdown (e.g. <code>/25</code>)</li>
+      <li>Click <strong>Calculate</strong> to see all subnet details and the full calculation walkthrough</li>
+      <li>Use <strong>Clear</strong> to reset and try another address</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Pages</h2>
+    <ul>
+      <li><a href="index.html" style="color:#38bdf8">Calculator</a> — the main subnet calculation tool</li>
+      <li><a href="dataflow.html" style="color:#38bdf8">Data Flow</a> — an animated visual of how each JavaScript function passes data to the next</li>
+      <li><a href="about.html" style="color:#38bdf8">About</a> — this page</li>
+
+  <li><a href="index.html" style="color:#38bdf8">Calculator</a> — the main subnet calculation tool</li>
+  <li><a href="dataflow.html" style="color:#38bdf8">Data Flow</a> — an animated visual of how each JavaScript function passes data to the next</li>
+  <li><a href="faq.html" style="color:#38bdf8">FAQ</a> — tabbed answers to common subnetting questions</li>
+  <li><a href="about.html" style="color:#38bdf8">About</a> — this page</li>
+</ul>
+  </div>
+
+  <div class="card">
+    <h2>Technical Notes</h2>
+    <p>
+      The app is a single-page application with no dependencies, no server, and no data
+      collection. All calculations run locally in your browser using bitwise operations
+      on 32-bit integers. Your IP addresses never leave your device.
+    </p>
+  </div>
+</div>
+
+
+
+<footer>
+  <div class="copy">&copy; 2026 CodeBox LLC. All rights reserved.</div>
+  Created by <a href="https://codeboxllc.net/" target="_blank" rel="noopener">CodeBox LLC</a>
+  <div class="links">
+    <a href="https://github.com/codeboxllc/subnetcalc" target="_blank" rel="noopener">GitHub Repo</a>
+  </div>
+</footer>
+
+<script src="src/app.js"></script>
+</body>
+</html>   
